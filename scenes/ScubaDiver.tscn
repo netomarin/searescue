@@ -1,0 +1,50 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/scubadiver_1.png" type="Texture" id=1]
+[ext_resource path="res://assets/scubadiver_5.png" type="Texture" id=2]
+[ext_resource path="res://assets/scubadiver_2.png" type="Texture" id=3]
+[ext_resource path="res://assets/scubadiver_3.png" type="Texture" id=4]
+[ext_resource path="res://assets/scubadiver_8.png" type="Texture" id=5]
+[ext_resource path="res://assets/scubadiver_7.png" type="Texture" id=6]
+[ext_resource path="res://assets/scubadiver_10.png" type="Texture" id=7]
+[ext_resource path="res://assets/scubadiver_6.png" type="Texture" id=8]
+[ext_resource path="res://assets/scubadiver_4.png" type="Texture" id=9]
+[ext_resource path="res://assets/scubadiver_9.png" type="Texture" id=10]
+[ext_resource path="res://scripts/ScubaDiver.gd" type="Script" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 9 ), ExtResource( 2 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 13.7511
+height = 47.5744
+
+[node name="ScubaDiver" type="RigidBody2D"]
+position = Vector2( 0, -0.210274 )
+collision_mask = 0
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 11 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.1, 0.1 )
+frames = SubResource( 1 )
+frame = 5
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -4.41083, -2.16849 )
+rotation = 1.58825
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 1.87053, 0 )
+[connection signal="body_entered" from="." to="." method="_on_ScubaDiver_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_ScubaDiver_body_shape_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

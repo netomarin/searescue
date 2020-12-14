@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/submarine_2.png" type="Texture" id=1]
+[ext_resource path="res://assets/submarine_3.png" type="Texture" id=2]
+[ext_resource path="res://assets/submarine_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/submarine_4.png" type="Texture" id=4]
+[ext_resource path="res://scripts/Submarine.gd" type="Script" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 24.3999
+height = 30.9998
+
+[node name="Submarine" type="Area2D"]
+position = Vector2( -32, -9 )
+script = ExtResource( 5 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.4, 0.4 )
+frames = SubResource( 1 )
+animation = "move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 21, 4.5 )
+rotation = 1.5708
+shape = SubResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_Submarine_body_entered"]
